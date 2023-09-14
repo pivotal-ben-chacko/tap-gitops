@@ -1,0 +1,22 @@
+---
+secrets:
+  eso:
+    vault:
+      server: https://vault.skynetsystems.io
+      namespace: ""
+      auth:
+        kubernetes:
+          mountPath: tap
+          role: tap--tanzu-sync-secrets
+    remote_refs:
+      sync_git:
+        ssh:
+          private_key:
+            key: secret/dev/iterate-green/tanzu-sync/sync-git/ssh
+            property: privatekey
+          known_hosts:
+            key: secret/dev/iterate-green/tanzu-sync/sync-git/ssh
+            property: knownhosts
+      install_registry_dockerconfig:
+        dockerconfigjson:
+          key: secret/dev/tap/tanzu-sync/install-registry-dockerconfig

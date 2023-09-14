@@ -1,0 +1,15 @@
+---
+tap_install:
+  secrets:
+    eso:
+      vault:
+        server: https://vault.skynetsystems.io
+        namespace: ""
+        auth:
+          kubernetes:
+            mountPath: tap
+            role: tap--tap-install-secrets
+      remote_refs:
+        tap_sensitive_values:
+          sensitive_tap_values_yaml:
+            key: secret/dev/tap/tap/sensitive-values.yaml

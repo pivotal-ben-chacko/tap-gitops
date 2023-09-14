@@ -1,0 +1,120 @@
+tap_install:
+  values:
+    # Tanzu Application Platform values go here.
+    shared:
+      ingress_domain: "skynetsystems.io"
+      ca_cert_data: |
+        -----BEGIN CERTIFICATE-----
+        MIIDKTCCAhGgAwIBAgIRAKvRGsQdI72TK+D4C+KjJHUwDQYJKoZIhvcNAQELBQAw
+        FDESMBAGA1UEAxMJSGFyYm9yIENBMB4XDTIzMDcxMTE0MjkzNloXDTMzMDcwODE0
+        MjkzNlowFDESMBAGA1UEAxMJSGFyYm9yIENBMIIBIjANBgkqhkiG9w0BAQEFAAOC
+        AQ8AMIIBCgKCAQEA1TFTmaE2IscyVUCifFJQfefMXSj3Tl/6FucI6fq2IAYqJlyi
+        OUYaOskTRp08ZrFwCNy5jGgBdbW/ltMdtKkSLNI6dX5uReorkFUPk/gza6Y5IpTc
+        f23O6r0HN35maioi+Xi1X23DPNWc40Wo3K/OmFPqPm/S0xJwyLtCuF22z27p1Rsl
+        N9NeTz21LOjy0yAWvPkxJqRa+r7VpBRWJpPupHaTBmoAgfpllVk9Apk0r5PxVF8s
+        YPeBs8Qt6Oln9lsI+Jf8nVgu5E95oOlPJ9u3pXFu5QjH0lycOWLLzgtupBPmR6Pc
+        72GjKVg3jYnXjc25FH2MfXSZC+x63YwffBDNJQIDAQABo3YwdDAOBgNVHQ8BAf8E
+        BAMCAgQwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA8GA1UdEwEB/wQF
+        MAMBAf8wHQYDVR0OBBYEFKaavqwGlm0pzvTcYKRDXqEbmKneMBMGA1UdEQQMMAqC
+        CGhhcmJvcmNhMA0GCSqGSIb3DQEBCwUAA4IBAQCITEtfj0DGKIR0iVl7nVoE40Mf
+        vXGqgAXdJtvbT3SxrNeuW/oOGw6nTnOt2IRuL/m9yM5Of9iKv7b9+fMLdogU9EsG
+        zE0CyI+bDEf5kRg055dEKbNC18DQX/JiaixXAmYqHx7R2vBPjWXAyi7jTQIi/Gnu
+        etUZOreGXveZ1EcNlpDYEifHpy7qt94D9ppY22Cs0It0eNGqyJ8smLkVUmHjI1x7
+        9HlHskc0TLdxz9e7wx5Wo2ARAvZMt65yPv0eYbtJLygvEyF1Kx9nYAvH0bzM8wnQ
+        i7Q6OId0eT5eVx0B5NGrxOdkMXwHNV04vMGdxnEUOu0tcoWBvl/UGOFPJVwP
+        -----END CERTIFICATE-----
+    ceip_policy_disclosed: true
+    
+    #The above keys are minimum numbers of entries needed in tap-values.yaml to get a functioning TAP Full profile installation.
+    
+    #Below are the keys which may have default values set, but can be overridden.
+    
+    profile: full # Can take iterate, build, run, view.
+    
+    excluded_packages:
+    - policy.apps.tanzu.vmware.com
+    - apis.apps.tanzu.vmware.com
+    
+    namespace_provisioner:
+      controller: true
+      default_parameters:
+        limits:
+          default:
+            cpu: 1.7
+            memory: 1Gi
+          defaultRequest:
+            cpu: 100m
+            memory: 1Gi
+    
+    supply_chain: testing_scanning # Can take testing, testing_scanning.
+    
+    ootb_supply_chain_basic: # Based on supply_chain set above, can be changed to ootb_supply_chain_testing, ootb_supply_chain_testing_scanning.
+      registry:
+        server: harbor.skynetsystems.io
+        repository: tap/supply-chains
+      gitops:
+        ssh_secret: ""
+    
+    contour:
+      envoy:
+        service:
+          type: LoadBalancer # This is set by default, but can be overridden by setting a different value.
+    
+    buildservice:
+      kp_default_repository: "harbor.skynetsystems.io/tap/build-service"
+      ca_cert_data: |
+        -----BEGIN CERTIFICATE-----
+        MIIDKTCCAhGgAwIBAgIRAKvRGsQdI72TK+D4C+KjJHUwDQYJKoZIhvcNAQELBQAw
+        FDESMBAGA1UEAxMJSGFyYm9yIENBMB4XDTIzMDcxMTE0MjkzNloXDTMzMDcwODE0
+        MjkzNlowFDESMBAGA1UEAxMJSGFyYm9yIENBMIIBIjANBgkqhkiG9w0BAQEFAAOC
+        AQ8AMIIBCgKCAQEA1TFTmaE2IscyVUCifFJQfefMXSj3Tl/6FucI6fq2IAYqJlyi
+        OUYaOskTRp08ZrFwCNy5jGgBdbW/ltMdtKkSLNI6dX5uReorkFUPk/gza6Y5IpTc
+        f23O6r0HN35maioi+Xi1X23DPNWc40Wo3K/OmFPqPm/S0xJwyLtCuF22z27p1Rsl
+        N9NeTz21LOjy0yAWvPkxJqRa+r7VpBRWJpPupHaTBmoAgfpllVk9Apk0r5PxVF8s
+        YPeBs8Qt6Oln9lsI+Jf8nVgu5E95oOlPJ9u3pXFu5QjH0lycOWLLzgtupBPmR6Pc
+        72GjKVg3jYnXjc25FH2MfXSZC+x63YwffBDNJQIDAQABo3YwdDAOBgNVHQ8BAf8E
+        BAMCAgQwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA8GA1UdEwEB/wQF
+        MAMBAf8wHQYDVR0OBBYEFKaavqwGlm0pzvTcYKRDXqEbmKneMBMGA1UdEQQMMAqC
+        CGhhcmJvcmNhMA0GCSqGSIb3DQEBCwUAA4IBAQCITEtfj0DGKIR0iVl7nVoE40Mf
+        vXGqgAXdJtvbT3SxrNeuW/oOGw6nTnOt2IRuL/m9yM5Of9iKv7b9+fMLdogU9EsG
+        zE0CyI+bDEf5kRg055dEKbNC18DQX/JiaixXAmYqHx7R2vBPjWXAyi7jTQIi/Gnu
+        etUZOreGXveZ1EcNlpDYEifHpy7qt94D9ppY22Cs0It0eNGqyJ8smLkVUmHjI1x7
+        9HlHskc0TLdxz9e7wx5Wo2ARAvZMt65yPv0eYbtJLygvEyF1Kx9nYAvH0bzM8wnQ
+        i7Q6OId0eT5eVx0B5NGrxOdkMXwHNV04vMGdxnEUOu0tcoWBvl/UGOFPJVwP
+        -----END CERTIFICATE-----
+      # exclude_dependencies: true
+    
+      # Enable the build service k8s service account to bind to the AWS IAM Role
+      # kp_default_repository_aws_iam_role_arn: "arn:aws:iam:::role/tap-build-service"
+    
+    ootb_templates:
+      # Enable the config writer service to use cloud based iaas authentication
+      # which are retrieved from the developer namespace service account by
+      # default
+      iaas_auth: false
+    
+    tap_gui:
+      app_config:
+        customize:
+          custom_name: "Fiserv POC"
+    
+      service_type: ClusterIP # If shared.ingress_domain is set earlier, this must be set to ClusterIP.
+      app_config:
+        catalog:
+          locations:
+            - type: url
+              target: https://github.com/sample-accelerators/tanzu-java-web-app/blob/main/catalog/catalog-info.yaml
+    
+    metadata_store:
+      app_service_type: ClusterIP # Defaults to LoadBalancer. If shared.ingress_domain is set earlier, this must be set to ClusterIP.
+      ns_for_export_app_cert: "*"
+      ingress_enabled: "true"
+    
+    scanning:
+      metadataStore:
+        url: "" # Configuration is moved, so set this string to empty.
+    
+    grype:
+      namespace: "dev"
+      targetImagePullSecret: "registry-credentials"
+    
