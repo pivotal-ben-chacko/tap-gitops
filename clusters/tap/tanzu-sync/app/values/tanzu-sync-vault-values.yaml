@@ -12,10 +12,10 @@ secrets:
       sync_git:
         ssh:
           private_key:
-            key: secret/dev/iterate-green/tanzu-sync/sync-git/ssh
+            key: secret/dev/tap/tanzu-sync/sync-git/ssh
             property: privatekey
           known_hosts:
-            key: secret/dev/iterate-green/tanzu-sync/sync-git/ssh
+            key: secret/dev/tap/tanzu-sync/sync-git/ssh
             property: knownhosts
       install_registry_dockerconfig:
         dockerconfigjson:
